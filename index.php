@@ -8,7 +8,7 @@
 
 $tiles = array();
 $tiles[] = "Tekniska problem";
-$tiles[] = "\"Ni på distans kan ju inte se det här, men...\"";
+$tiles[] = "Felstavning i slide";
 $tiles[] = "\"Ooops\"";
 $tiles[] = "Upprepar inte en fråga för distansarna";
 $tiles[] = "\"Klas\"";
