@@ -19,10 +19,14 @@ $tiles[] = "Glömmer spela in föreläsningen";
 $tiles[] = "Random muspekare";
 $tiles[] = "Överfull slide";
 $tiles[] = "\"Kål\"";
-$tiles[] = "\"ten min brejk\"";
+$tiles[] = "\"Ten min brejk\"";
 $tiles[] = "Bug i exempelkod";
 $tiles[] = "\"Mettåd\"";
 $tiles[] = "\"De tåppik får todäj\"";
+//$tiles[] = "\"Pråpperti\"";
+//$tiles[] = "\"Stupid\"";
+//$tiles[] = "\"Åbbjekt\"";
+//$tiles[] = "\"Pabblik\"";
 
 shuffle($tiles);
 ?>
