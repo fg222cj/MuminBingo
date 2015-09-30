@@ -6,6 +6,9 @@
  * Time: 09:49
  */
 
+$numberOfTiles = 25; // Needs to have an even square root, e.g. 4, 9, 16, 25, 36, etc.
+$numberOfColumns = sqrt($numberOfTiles);
+
 $tiles = array();
 $tiles[] = "Tekniska problem";
 $tiles[] = "Felstavning i slide";
@@ -23,10 +26,15 @@ $tiles[] = "\"Ten min brejk\"";
 $tiles[] = "Bug i exempelkod";
 $tiles[] = "\"Mettåd\"";
 $tiles[] = "\"De tåppik får todäj\"";
-//$tiles[] = "\"Pråpperti\"";
-//$tiles[] = "\"Stupid\"";
-//$tiles[] = "\"Åbbjekt\"";
-//$tiles[] = "\"Pabblik\"";
+$tiles[] = "\"Pråpperti\"";
+$tiles[] = "\"Stupid\"";
+$tiles[] = "\"Åbbjekt\"";
+$tiles[] = "\"Pabblik\"";
+$tiles[] = "\"Åverrajd\"";
+$tiles[] = "Uttalar \"G\" som \"jay\"";
+$tiles[] = "Bokstavssoppa på sliden";
+$tiles[] = "Berättar att något inte är rocket science";
+$tiles[] = "Bajsar på sig";
 
 shuffle($tiles);
 ?>
@@ -39,11 +47,11 @@ shuffle($tiles);
         <script language="javascript" type="text/javascript" src="bingo.js"></script>
     </head>
     <body>
-    <p>Klicka i en ruta för att markera den. 4 rutor i rad = BINGO!</p>
+    <p>Klicka i en ruta för att markera den. 5 rutor i rad = BINGO!</p>
     <table>
         <?php
-        for($i = 0; $i < 16; $i++) {
-            if($i%4 == 0) {
+        for($i = 0; $i < $numberOfTiles; $i++) {
+            if($i%$numberOfColumns == 0) {
                 ?>
                 <tr>
                 <?php
@@ -51,7 +59,7 @@ shuffle($tiles);
 
             echo "<td>" . $tiles[$i] . "</td>";
 
-            if($i%4 == 3) {
+            if($i%$numberOfColumns == $numberOfColumns - 1) {
                 ?>
                 </tr>
                 <?php
