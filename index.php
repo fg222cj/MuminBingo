@@ -6,7 +6,7 @@
  * Time: 09:49
  */
 
-$numberOfTiles = 25; // Needs to have an even square root, e.g. 4, 9, 16, 25, 36, etc.
+$numberOfTiles = 25; // Needs to have an integer as square root, e.g. 4, 9, 16, 25, 36, etc.
 $numberOfColumns = sqrt($numberOfTiles);
 
 $tiles = array();
