@@ -5,7 +5,13 @@
  * Date: 2015-09-04
  * Time: 09:49
  */
+// Debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once('src/config.php');
 require_once('src/Tileset.php');
+require_once('src/TilesetView.php');
 require_once('src/TilesetRepository.php');
 
 // Require only the active course
@@ -22,6 +28,8 @@ $tileset = new Tileset("", session_id(), $tiles, $markedTiles);
 $tilesetRepository = new TilesetRepository();
 $tilesetRepository->store($tileset);
 
+$tilesetView = new TilesetView();
+
 ?>
 <html>
     <head>
@@ -35,28 +43,15 @@ $tilesetRepository->store($tileset);
     <p>Klicka i en ruta för att markera den. <?php echo $numberOfColumns ?> rutor i rad = BINGO!</p>
     <form>
         Namn: <input type="text" name="username"/>
+        <input type="hidden" name="sessionID" value="<?php echo session_id() ?>" />
+        <input type="hidden" name="tiles" value="<?php echo serialize($tileset->getTiles()) ?>" />
         <br />
         <br />
-        <table class="mysheet">
-            <?php
-            for($i = 0; $i < $numberOfTiles; $i++) {
-                if($i%$numberOfColumns == 0) {
-                    ?>
-                    <tr>
-                    <?php
-                }
-
-                echo "<td name='" . $i . "'>" . $tiles[$i] . "</td>";
-                echo "<input type=\"hidden\" id='hidden_tile_" . $i . "' name='" . $i . "' value=\"unmarked\" />";
-
-                if($i%$numberOfColumns == $numberOfColumns - 1) {
-                    ?>
-                    </tr>
-                    <?php
-                }
-            }
-            ?>
-        </table>
+        <?php
+        echo $tilesetView->render($tileset);
+        ?>
     </form>
+    <div id="others">
+    </div>
     </body>
 </html>

@@ -4,7 +4,7 @@
 $(document).ready(setEvents);
 
 function setEvents() {
-    jQuery("td").click(function() {
+    jQuery("form td").click(function() {
         var tileID = jQuery(this).attr('name');
         if(jQuery(this).hasClass("marked")) {
             jQuery(this).removeClass("marked");
@@ -19,15 +19,30 @@ function setEvents() {
     setInterval(update, 2000);
 }
 
-function update() {
+function updateAndGetOtherTables() {
     var username = $('form').find('input[name=username]').val();
-    // Todo: hämta all data och kötta in skiten med ajax
+    var sessionID = $('form').find('input[name=sessionID]').val();
+    var tiles = $('form').find('input[name=tiles]').val();
+    var markedTiles = new Array();
+    $('form').find('input[name=hidden_tile]').each(function(index, element) {
+       markedTiles.push($(element).val());
+    });
+
     $.ajax({
         type: 'post',
         url: 'src/AjaxController.php',
-        data: tba,
-        success: function () {
-            alert('form was submitted');
-        }
-    });
+        dataType: "html",
+        data: {username: username,
+               sessionID: sessionID,
+               markedTiles: JSON.stringify(markedTiles)}
+    })
+        .done(function(result) {
+            $('#others').html(result);
+        });
+
+};
+
+function update() {
+    updateAndGetOtherTables();
+
 };

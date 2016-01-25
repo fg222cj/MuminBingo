@@ -5,8 +5,8 @@
  * Date: 2016-01-20
  * Time: 11:29
  */
-require_once("src/Repository.php");
-require_once("src/Tileset.php");
+require_once("Repository.php");
+require_once("Tileset.php");
 
 class TilesetRepository extends Repository {
     public function store(Tileset $tileset) {
@@ -21,24 +21,30 @@ class TilesetRepository extends Repository {
     }
 
     public function update(Tileset $tileset) {
-        $db = $this->connection();
+        try {
+            $db = $this->connection();
 
-        $sql = "UPDATE " . DBTILESETTABLE . " SET " . DBTILESETTABLEUSERNAME . "=?, " . DBTILESETTABLETILES . "=?,
-         " . DBTILESETTABLEMARKEDTILES . "=? WHERE " . DBTILESETTABLESESSIONID . "=" . $tileset->getSessionID();
-        $params = array($tileset->getUsername(), serialize($tileset->getTiles()), serialize($tileset->getMarkedTiles()));
+            $sql = "UPDATE " . DBTILESETTABLE . " SET " . DBTILESETTABLEUSERNAME . "=?, " . DBTILESETTABLEMARKEDTILES . "=?
+        WHERE " . DBTILESETTABLESESSIONID . "=?";
+            $params = array($tileset->getUsername(), serialize($tileset->getMarkedTiles()), $tileset->getSessionID());
 
-        $query = $db->prepare($sql);
-        $query->execute($params);
+            $query = $db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(Exception $e) {
+            syslog(LOG_DEBUG, $e->getMessage());
+        }
     }
 
     // Todo: only fetch active tilesets
     public function getAllActiveTilesets() {
         $db = $this->connection();
 
-        $sql = "SELECT * FROM " . DBTILESETTABLE;
+        $sql = "SELECT * FROM " . DBTILESETTABLE . " WHERE " . DBTILESETTABLESESSIONID . "!=?";
+        $params = array(session_id());
 
         $query = $db->prepare($sql);
-        $query->execute();
+        $query->execute($params);
 
         $result = $query->fetchAll();
         $tilesets = array();
