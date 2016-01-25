@@ -5,14 +5,29 @@ $(document).ready(setEvents);
 
 function setEvents() {
     jQuery("td").click(function() {
-        console.log("click");
+        var tileID = jQuery(this).attr('name');
         if(jQuery(this).hasClass("marked")) {
-            console.log("removeclass");
             jQuery(this).removeClass("marked");
+            jQuery("#hidden_tile_" + tileID).val("unmarked");
         }
         else {
-            console.log("addclass");
             jQuery(this).addClass("marked");
+            jQuery("#hidden_tile_" + tileID).val("marked");
         }
     });
+
+    setInterval(update, 2000);
 }
+
+function update() {
+    var username = $('form').find('input[name=username]').val();
+    // Todo: hämta all data och kötta in skiten med ajax
+    $.ajax({
+        type: 'post',
+        url: 'src/AjaxController.php',
+        data: tba,
+        success: function () {
+            alert('form was submitted');
+        }
+    });
+};

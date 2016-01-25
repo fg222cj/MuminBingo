@@ -24,7 +24,7 @@ function getTileset()
     $tiles[] = "\"Mettåd\"";
     $tiles[] = "\"De tåppik får todäj\"";
     $tiles[] = "\"Pråpperti\"";
-    $tiles[] = "\"Stupid\"";
+    $tiles[] = "Upprepar samma ord minst 4 gånger i rad";
     $tiles[] = "\"Åbbjekt\"";
     $tiles[] = "\"Pabblik\"";
     $tiles[] = "\"Åverrajd\"";
