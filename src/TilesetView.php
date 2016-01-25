@@ -23,7 +23,7 @@ class TilesetView {
 
         $html = "<table class=\"" . $class . "\">";
         if($tileset->getSessionID() !== session_id()) {
-            $html .= "<h3>" . $tileset->getUsername() . "</h3>";
+            $html .= "<caption><h3>" . $tileset->getUsername() . "</h3></caption>";
         }
         for($i = 0; $i < $numberOfTiles; $i++) {
             if($i%$numberOfColumns == 0) {

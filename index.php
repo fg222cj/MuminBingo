@@ -17,7 +17,7 @@ require_once('src/TilesetRepository.php');
 // Require only the active course
 require_once('src/courses/softwarearchitecture.php');
 //require_once('src/courses/fost.php');
-
+// Todo: If tileset already exists for this sessionid - fetch that instead.
 session_start();
 $numberOfTiles = 25; // Needs to have an integer as square root, e.g. 4, 9, 16, 25, 36, etc.
 $numberOfColumns = sqrt($numberOfTiles); // Determines the width of each row so we get a nice big square

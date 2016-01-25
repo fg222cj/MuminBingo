@@ -15,8 +15,8 @@ function setEvents() {
             jQuery("#hidden_tile_" + tileID).val("marked");
         }
     });
-
-    setInterval(update, 2000);
+    update();
+    //setInterval(update, 2000);
 }
 
 function updateAndGetOtherTables() {

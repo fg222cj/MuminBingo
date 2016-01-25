@@ -1,5 +1,6 @@
 table.mysheet td {height: 100px; width:100px; border: solid 1px}
 
-table.othersheet td {height: 30px; width:30px; border: solid 1px}
+table.othersheet {display:inline-block; float:left; margin-right:10px}
+table.othersheet td {height: 30px; width:30px; border: solid 1px; font-size:60%}
 
 .marked { background-color:limegreen}
