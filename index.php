@@ -18,17 +18,17 @@ require_once('src/TilesetRepository.php');
 require_once('src/courses/softwarearchitecture.php');
 //require_once('src/courses/fost.php');
 // Todo: If tileset already exists for this sessionid - fetch that instead.
-session_start();
-$numberOfTiles = 25; // Needs to have an integer as square root, e.g. 4, 9, 16, 25, 36, etc.
-$numberOfColumns = sqrt($numberOfTiles); // Determines the width of each row so we get a nice big square
-
-$tiles = getTileset();
-$markedTiles = array_fill(0, 25, "unmarked");
-$tileset = new Tileset("", session_id(), $tiles, $markedTiles);
 $tilesetRepository = new TilesetRepository();
-$tilesetRepository->store($tileset);
-
 $tilesetView = new TilesetView();
+
+session_start();
+$tileset = $tilesetRepository->getBySessionID(session_id());
+if(!isset($tileset)) {
+    $tiles = getTileset();
+    $markedTiles = array_fill(0, 25, "unmarked");
+    $tileset = new Tileset("", session_id(), $tiles, $markedTiles);
+    $tilesetRepository->store($tileset);
+}
 
 ?>
 <html>
@@ -40,7 +40,7 @@ $tilesetView = new TilesetView();
         <script language="javascript" type="text/javascript" src="bingo.js"></script>
     </head>
     <body>
-    <p>Klicka i en ruta för att markera den. <?php echo $numberOfColumns ?> rutor i rad = BINGO!</p>
+    <p>Klicka i en ruta för att markera den. 5 rutor i rad = BINGO!</p>
     <form>
         Namn: <input type="text" name="username"/>
         <input type="hidden" name="sessionID" value="<?php echo session_id() ?>" />

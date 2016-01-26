@@ -56,4 +56,22 @@ class TilesetRepository extends Repository {
 
         return $tilesets;
     }
+
+    public function getBySessionID($sessionID) {
+        $db = $this->connection();
+
+        $sql = "SELECT * FROM " . DBTILESETTABLE . " WHERE " . DBTILESETTABLESESSIONID . "=? LIMIT 1";
+        $params = array($sessionID);
+
+        $query = $db->prepare($sql);
+        $query->execute($params);
+        $result = $query->fetchAll();
+
+        if(isset($result[0]['id'])) {
+            $tileset = new Tileset($result[0][DBTILESETTABLEUSERNAME], $result[0][DBTILESETTABLESESSIONID], unserialize($result[0][DBTILESETTABLETILES]), unserialize($result[0][DBTILESETTABLEMARKEDTILES]));
+
+            return $tileset;
+        }
+        return null;
+    }
 }

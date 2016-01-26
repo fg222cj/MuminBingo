@@ -4,6 +4,10 @@
 $(document).ready(setEvents);
 
 function setEvents() {
+    jQuery("form").submit(function(event){
+       event.preventDefault();
+       jQuery("input").blur();
+    });
     jQuery("form td").click(function() {
         var tileID = jQuery(this).attr('name');
         if(jQuery(this).hasClass("marked")) {
@@ -16,10 +20,10 @@ function setEvents() {
         }
     });
     update();
-    //setInterval(update, 2000);
+    setInterval(update, 1000);
 }
 
-function updateAndGetOtherTables() {
+function update() {
     var username = $('form').find('input[name=username]').val();
     var sessionID = $('form').find('input[name=sessionID]').val();
     var tiles = $('form').find('input[name=tiles]').val();
@@ -39,10 +43,5 @@ function updateAndGetOtherTables() {
         .done(function(result) {
             $('#others').html(result);
         });
-
-};
-
-function update() {
-    updateAndGetOtherTables();
 
 };
